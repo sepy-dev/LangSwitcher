@@ -6,6 +6,7 @@ use eframe::egui;
 use egui::{ColorImage, TextureHandle};
 use image;
 use std::path::PathBuf;
+use std::process::{Child, Command};
 
 const ICON_FOLDER: &str = "icons";
 const DEFAULT_ICON_NAME: &str = "default.png";
@@ -89,6 +90,7 @@ fn draw_toggle(ui: &mut egui::Ui, on: &mut bool) -> egui::Response {
 struct LangApp {
     state: LangState,
     textures: Vec<Option<TextureHandle>>, // parallel to state.programs
+    watcher: Option<Child>, // handle to the spawned watcher binary
 }
 
 impl LangApp {
@@ -99,7 +101,48 @@ impl LangApp {
         let textures = st.programs.iter()
             .map(|p| load_icon_texture(&cc.egui_ctx, &p.name))
             .collect();
-        Self { state: st, textures }
+        Self { state: st, textures, watcher: None }
+    }
+
+    /// try to locate bin/watcher[.exe] next to the running exe and spawn it
+    fn start_watcher(&mut self) {
+        if self.watcher.is_some() {
+            // already running (or we have a handle)
+            return;
+        }
+
+        // probe for watcher binary next to current exe: <exe_dir>/bin/watcher(.exe)
+        if let Ok(mut exe_path) = std::env::current_exe() {
+            if let Some(parent) = exe_path.parent() {
+                let bin_dir = parent;
+                let watcher_name = if cfg!(windows) { "watcher.exe" } else { "watcher" };
+                let watcher_path = bin_dir.join(watcher_name);
+
+                if watcher_path.exists() {
+                    match Command::new(watcher_path).spawn() {
+                        Ok(child) => {
+                            self.watcher = Some(child);
+                            println!("started watcher");
+                        }
+                        Err(e) => {
+                            eprintln!("failed to spawn watcher: {}", e);
+                        }
+                    }
+                } else {
+                    println!("watcher binary not found at expected path: {:?}", bin_dir);
+                }
+            }
+        }
+    }
+
+    /// kill the watcher process (best-effort)
+    fn stop_watcher(&mut self) {
+        if let Some(mut child) = self.watcher.take() {
+            if let Err(e) = child.kill() {
+                eprintln!("failed to kill watcher: {}", e);
+            }
+            let _ = child.wait();
+        }
     }
 }
 
@@ -218,6 +261,40 @@ impl eframe::App for LangApp {
                     ui.label(format!("Save error: {}", e));
                 }
             }
+        });
+
+        // bottom panel for watcher control (start/stop)
+        egui::TopBottomPanel::bottom("watcher_panel").show(ctx, |ui| {
+            ui.add_space(6.0);
+            ui.horizontal_centered(|ui| {
+                // try to update watcher status by checking if child already exited
+                let mut running = false;
+                if let Some(child) = &mut self.watcher {
+                    match child.try_wait() {
+                        Ok(Some(_status)) => {
+                            // child exited; drop the handle
+                            self.watcher = None;
+                            running = false;
+                        }
+                        Ok(None) => running = true,
+                        Err(_) => running = true,
+                    }
+                }
+
+                if running {
+                    if ui.button("Stop watcher").clicked() {
+                        self.stop_watcher();
+                    }
+                } else {
+                    if ui.button("Start watcher").clicked() {
+                        self.start_watcher();
+                    }
+                }
+
+                ui.add_space(8.0);
+                ui.label(if running { "Watcher: running" } else { "Watcher: stopped" });
+            });
+            ui.add_space(6.0);
         });
     }
 }

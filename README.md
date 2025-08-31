@@ -72,11 +72,11 @@
 
 ### روش سریع — دانلود از Releases (رنگی و واضح)
 1. به صفحهٔ Releases برو:  
-   `https://github.com/sepy-dev/LangSwitcher/releases`  
-2. آخرین فایل ویندوزی (`.zip` یا `.exe`) را دانلود کن.  
-3. فایل را استخراج کن و مطمئن شو پوشه `icons/` کنار `LanguageSwitcher.exe` قرار دارد.  
-4. روی `LanguageSwitcher.exe` دابل‌کلیک کن تا اجرا شود.  
-5. (اختیاری) برای اجرای دائمی Watcher، آن را از داخل برنامه فعال کن یا یک میانبر در استارت آپ ویندوز بساز.
+     <a href="https://github.com/sepy-dev/LangSwitcher/releases" target="_blank" rel="noopener">
+    <img alt="📦 دانلود آخرین نسخه" src="https://img.shields.io/badge/📦%20Download%20Latest%20Release-v%20—-purple?style=for-the-badge&labelColor=111827&color=7a42f4">
+  </a>
+2.  imstaller رو‌ دانلود کن
+3. نصب کن چ سپس با شرتکات اجرا
 
 ---
 

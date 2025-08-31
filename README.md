@@ -27,20 +27,12 @@
     <img src="https://img.shields.io/badge/License-MIT-00b894?style=for-the-badge&labelColor=111827" alt="License">
   </a>
 </p>
-
+🌐 Socials
+<p align="center"> <a href="https://github.com/sepy-dev" target="_blank"> <img src="https://img.shields.io/badge/GitHub-%23181717.svg?&style=for-the-badge&logo=github&logoColor=white" /> </a> <a href="https://x.com/sepy_dev" target="_blank"> <img src="https://img.shields.io/badge/X-%23000000.svg?&style=for-the-badge&logo=x&logoColor=white" /> </a> <a href="https://www.instagram.com/sepehr.ramzany" target="_blank"> <img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?&style=for-the-badge&logo=instagram&logoColor=white" /> </a> <a href="[https://linkedin.com/in/sepy-dev](https://www.linkedin.com/in/sepehr-ramzani-133043330/)" target="_blank"> <img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" /> </a> </p
 ---
 
-## فهرست محتوا
-- [ویژگی‌ها](#-ویژگی‌ها)
-- [پیش‌نمایش](#-پیش‌نمایش)
-- [نصب و اجرا - کاربران نهایی](#-نصب-و-اجرا)
-- [برای توسعه‌دهندگان](#-برای-توسعه‌دهندگان)
-- [پیکربندی (نمونه)](#-پیکربندی-نمونه)
-- [رفع خطاهای رایج](#-رفع-خطاهای-رایج)
-- [مشارکت](#-مشارکت)
-- [لیست تغییرات و ریلیزها](#-لیست-تغییرات-و-ریلیزها)
-- [تماس](#-تماس)
-- [لایسنس](#-لایسنس)
+
+-
 
 ---
 
@@ -111,9 +103,9 @@ cargo build --release
 # اجرا با لاگ و حالت توسعه
 cargo run
 
-⚙️ پیکربندی (نمونه)
+```
 
-یک نمونهٔ ساده برای config.toml (یا settings.json) — می‌تونی فرمت دلخواهت رو استفاده کنی:
+
 
 # config.toml (نمونه)
 default_language = "EN"      # EN یا FA

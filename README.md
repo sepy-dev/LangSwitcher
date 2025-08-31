@@ -107,9 +107,20 @@ cargo run
 
 
 
-# config.toml (نمونه)
-default_language = "EN"      # EN یا FA
-hotkey = "Ctrl+Alt+L"       # کلید میانبر برای سوییچ دستی
-watcher_enabled = true      # فعال بودن Watcher در پس‌زمینه
-exclude_apps = ["Code.exe", "Telegram.exe"]  # برنامه‌هایی که نباید تغییر زبان بخورند
-icons_folder = "icons"      # مسیر پوشه آیکن‌ها
+LangSwitcher — Quick Project Overview
+
+LangSwitcher is a lightweight and modern tool designed to switch keyboard languages instantly (EN ↔ FA) on Windows. Built with Rust and inspired by Cyberpunk UI, it provides a sleek, minimalistic interface while running efficiently in the background.
+
+Key Features
+
+🎨 Modern Cyberpunk-inspired design
+
+⌨️ Instant language switching between English and Persian
+
+⚡ Automatic detection of running applications
+
+👀 Background Watcher for real-time monitoring
+
+💾 Persistent settings for a seamless experience
+
+Perfect for developers, translators, and power users who need a fast and visually appealing language switcher on Windows
